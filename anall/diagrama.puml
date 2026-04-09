@@ -1,0 +1,69 @@
+@startuml hospital
+
+class Paciente {
+- identificacion : int
+- nombre : String
+- edad : int
+- genero : boolean
+- tipoDeCancer : String
+- etapa : String
+- estado : String
+- historialTratamientos : List<Tratamiento>
+- historialExamenes : List<Examen>
++ Paciente(int identificacion, String nombre, int edad, boolean genero, String tipoDeCancer, String etapa, String estado)
+
++ agregarExamen(examen : Examen) : void
++ agregarTratamiento(tratamiento : Tratamiento) : void
++ toString() : String
+}
+
+class Examen {
+- identificacionExamen : int
+- fechaExamen : Date
+- tipoExamen : String
+- resultadoExamen : String
++ Examen(int identificacionExamen, Date fechaExamen, String tipoExamen, String resultadoExamen)
++ getIdentificacionExamen() : int
++ getFechaExamen() : Date
++ getTipoExamen() : String
++ getResultadoExamen() : String
+}
+
+class Tratamiento {
+- identificacionTratamiento : int
+- nombreTratamiento : String
+- duracionTratamientoEnDias : int
+- fechaInicioTratamiento : Date
+- fechaFinTratamiento : Date
++ Tratamiento(int identificacionTratamiento, String nombreTratamiento, int duracionTratamientoEnDias,Date fechaInicioTratamiento, Date fechaFinTratamiento
++ eficacia(tipoTratamiento : String) : double
++ getIdentificacionTratamiento() : int
++ getNombreTratamiento() : String
+}
+
+class Hospital {
+- pacientes : List<Paciente>
+- examenes : List<Examen>
+- tratamientos : List<Tratamiento>
++ Hospital()
++ agregarPaciente(paciente : Paciente) : void
++ buscarPaciente(id : int) : Paciente
++ agregarExamen(paciente : Paciente, examen : Examen) : void
++ agregarTratamiento(paciente : Paciente, tratamiento : Tratamiento) : void
+}
+class Sistema{
+- pacientes : List<Paciente>
+- hospital : Hospital
++ Sistema()
++ iniciar() : void
+
+}
+
+Paciente "1" --o "0..*" Examen
+Paciente "1" --o "0..*" Tratamiento
+Sistema  "1" *--  "1" Examen
+Hospital "1" --o "0..*" Paciente
+Hospital "1" --o "0..*" Examen
+Hospital "1" --o "0..*" Tratamiento
+
+@enduml
